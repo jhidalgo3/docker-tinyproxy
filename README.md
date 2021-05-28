@@ -41,6 +41,52 @@ docker run -t -i \
   tinyproxy
 ```
 
+## K8S Installation
+
+```
+kubectl create ns proxy
+```
+
+Change your Proxy configuration (_[USERNAME:PASS@PROXY_HOST:PORT]_) into ./k8s/deployment_tinyproxy.yaml.
+
+Install tinyproxy pod and service:
+
+```
+kubectl -f ./k8s/deployment_tinyproxy.yaml
+```
+
+Check Service
+
+```
+kubectl get svc -n proxy
+
+NAME        TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+tinyproxy   ClusterIP   10.24.12.62   <none>        8888/TCP   1h
+```
+
+Install pod curl testing
+```
+kubectl -f ./k8s/k8s/pod_curl-test.yaml
+```
+
+Testing
+```
+kubectl exec -it -n proxy curl-test -c curl -- sh -c "curl http://httpbin.org/headers"
+
+
+{
+  "headers": {
+    "Accept": "*/*",
+    "Cache-Control": "max-age=259200",
+    "Host": "httpbin.org",
+    "If-Modified-Since": "Thu, 27 May 2021 16:01:14 GMT",
+    "User-Agent": "curl/7.68.0",
+    "X-Amzn-Trace-Id": "Root=1-60b0ef4a-6bc5100e3fed2a5b50213277"
+  }
+}
+```
+
+
 ## License
 
 MIT © [Jose Maria Hidalgo Garcia](https://github.com/jhidalgo3/)

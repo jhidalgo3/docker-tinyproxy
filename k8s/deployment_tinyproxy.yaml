@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tinyproxy
+  namespace: proxy
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8888
+    targetPort: 8888
+  selector:
+    app: tinyproxy
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tinyproxy
+  namespace: proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tinyproxy
+  template:
+    metadata:
+      labels:
+        app: tinyproxy
+    spec:
+      containers:
+      - image: jhidalgo3/tinyproxy
+        imagePullPolicy: Always
+        name: tinyproxy
+        ports:
+        - containerPort: 8888
+        env:
+        - name: UPSTREAM
+          value: upstream http [USERNAME:PASS@PROXY_HOST:PORT]
