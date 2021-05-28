@@ -1,7 +1,9 @@
 Docker Tinyproxy
 ================
 
-> Docker implementation of [TinyProxy](https://github.com/jhidalgo3/tinyproxy)
+> Docker implementation of [TinyProxy](https://github.com/jhidalgo3/docker-tinyproxy)
+
+> Docker Image [tinyproxy](https://hub.docker.com/repository/docker/jhidalgo3/tinyproxy)
 
 ## Getting started
 
