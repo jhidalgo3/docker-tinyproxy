@@ -14,7 +14,16 @@ For testing purpose, you may want to change the **tinyproxy.conf** and switch th
 docker build -t jhidalgo3/tinyproxy .
 
 # run container in background
+__Default Upstream__
+docker run -d --name tinyproxy -e UPSTREAM='upstream http 192.168.2.8:3128' -p 8888:8888 jhidalgo3/tinyproxy
+
+__Only matches domain__
 docker run -d --name tinyproxy -e UPSTREAM='upstream http 192.168.2.8:3128 \".com\"' -p 8888:8888 jhidalgo3/tinyproxy
+
+__Change log level__
+docker run -d --name tinyproxy -e UPSTREAM='upstream http 192.168.2.8:3128' -e LOG_LEVEL=Critical -p 8888:8888 jhidalgo3/tinyproxy
+
+
 
 
 # proxy request via the running container
