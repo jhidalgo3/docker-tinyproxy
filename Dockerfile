@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.11
 
 MAINTAINER jhidalgo3
 
@@ -28,6 +28,12 @@ RUN adduser -D -u 2000 -h /var/run/tinyproxy -s /sbin/nologin tinyproxy tinyprox
 
 COPY tinyproxy.conf /etc/tinyproxy/tinyproxy.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+
+ADD cert/* /tmp/cert/
+RUN apk add --no-cache ca-certificates && \
+    mkdir /usr/share/ca-certificates/extra && \
+    cp -R /tmp/cert/* /usr/share/ca-certificates/ && \
+    update-ca-certificates
 
 USER root
 

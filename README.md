@@ -29,6 +29,8 @@ docker run -d --name tinyproxy -e UPSTREAM='upstream http 192.168.2.8:3128' -e L
 # proxy request via the running container
 http_proxy=127.0.0.1:8888 https_proxy=127.0.0.1:8888 curl https://www.google.com -v
 
+http_proxy=127.0.0.1:8888 https_proxy=127.0.0.1:8888 curl https://storage.googleapis.com -v
+
 # or
 curl -x 127.0.0.1:8888 curl https://www.google.com -v
 
